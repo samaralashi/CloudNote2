@@ -1,14 +1,20 @@
 package com.example.cloudnote22;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -77,9 +83,56 @@ public class MainActivity2 extends AppCompatActivity implements NoteAdapter.Item
 
     }
     public void deleteNote(final Note note) {
-
+        db.collection("Notes").document(note.getId())
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    items.remove(note);
+                    adapter.notifyDataSetChanged();
+                }).addOnFailureListener(e -> Log.e("LogDATA", "get failed with delete"));
     }
+
     public void updateNote(final Note note) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Name");
+        final View customLayout = getLayoutInflater().inflate(R.layout.dialog, null);
+        builder.setView(customLayout);
+        builder.setPositiveButton(
+                "Update",
+                (dialog, id) -> {
+                    updateTitle = customLayout.findViewById(R.id.update_title);
+                    updateContent = customLayout.findViewById(R.id.update_content);
+                    DocumentReference ref = db.collection("Notes").document(note.getId());
+                    ref.update("Note Title", updateTitle.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("samar", "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("samar", "Error updating document", e);
+                                }
+                            });
+
+                    ref.update("Note Content", updateContent.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("samar", "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("samar", "Error updating document", e);
+                                }
+                            });
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 
