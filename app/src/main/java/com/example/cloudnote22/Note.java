@@ -2,14 +2,14 @@ package com.example.cloudnote22;
 
 class Note {
     String id;
-    String title;
-    String content;
+    String titleN;
+    String contentN;
 
     private Note() {}
     Note(String id, String title, String content) {
         this.id = id;
-        this.title = title;
-        this.content = content;
+        this.titleN = title;
+        this.contentN = content;
     }
 
     public String getId() {
@@ -21,19 +21,19 @@ class Note {
     }
 
     public String getTitle() {
-        return title;
+        return titleN;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.titleN = title;
     }
 
     public String getContent() {
-        return content;
+        return contentN;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.contentN = content;
     }
 
 
