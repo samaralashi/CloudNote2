@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -37,50 +38,84 @@ public class MainActivity2 extends AppCompatActivity implements NoteAdapter.Item
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        updateTitle = findViewById(R.id.update_title);
-        updateContent = findViewById(R.id.update_content);
+//        updateTitle = findViewById(R.id.update_title);
+//        updateContent = findViewById(R.id.update_content);
 
         // update = findViewById(R.id.btn_update);
         EditText edit_name;
         rv = findViewById(R.id.rvRest);
         items = new ArrayList<Note>();
         adapter = new NoteAdapter(this, items, this, this);
-        delete = findViewById(R.id.delete);
+//        delete = findViewById(R.id.delete);
         GetAllProducts();
 
     }
 
     private void GetAllProducts() {
 
-
         db.collection("Notes").get()
-                .addOnSuccessListener(documentSnapshots -> {
-                    if (documentSnapshots.isEmpty()) {
-                        Log.d("smr", "onSuccess: LIST EMPTY");
-                        return;
-                    } else {
-                        for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                            if (documentSnapshot.exists()) {
-                                String id = documentSnapshot.getId();
-                                String title = documentSnapshot.getString("Note Title");
-                                String content = documentSnapshot.getString("Note Content");
 
-                                Note note = new Note(id, title, content);
-                                items.add(note);
-
-                                rv.setLayoutManager(layoutManager);
-                                rv.setHasFixedSize(true);
-                                rv.setAdapter(adapter);
-
-                                adapter.notifyDataSetChanged();
-                                Log.e("LogDATA", items.toString());
-
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                        if (documentSnapshots.isEmpty()) {
+                            Log.d("drn", "onSuccess: LIST EMPTY");
+                            return;
+                        } else {
+                            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                                if (documentSnapshot.exists()) {
+                                    String id = documentSnapshot.getId();
+                                    String titleN = documentSnapshot.getString("Title Note");
+                                    String contentN = documentSnapshot.getString("Content Note");
+                                    Note note= new Note(id, titleN, contentN);
+                                    items.add(note);
+                                    rv.setLayoutManager(layoutManager);
+                                    rv.setHasFixedSize(true);
+                                    rv.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+                                    Log.e("LogDATA", items.toString());
+                                }
                             }
                         }
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("LogDATA", "get failed with ");
 
-                }).addOnFailureListener(e -> Log.e("LogDATA", "get failed with "));
 
+                    }
+                });
+
+
+//        db.collection("Notes").get()
+//                .addOnSuccessListener(documentSnapshots -> {
+//                    if (documentSnapshots.isEmpty()) {
+//                        Log.d("smr", "onSuccess: LIST EMPTY");
+//                        return;
+//                    } else {
+//                        for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+//                            if (documentSnapshot.exists()) {
+//                                String id = documentSnapshot.getId();
+//                                String title = documentSnapshot.getString("Note Title");
+//                                String content = documentSnapshot.getString("Note Content");
+//
+//                                Note note = new Note(id, title, content);
+//                                items.add(note);
+//
+//                                rv.setLayoutManager(layoutManager);
+//                                rv.setHasFixedSize(true);
+//                                rv.setAdapter(adapter);
+//
+//                                adapter.notifyDataSetChanged();
+//                                Log.e("LogDATA", items.toString());
+//
+//                            }
+//                        }
+//                    }
+//
+//                }).addOnFailureListener(e -> Log.e("LogDATA", "get failed with "));
+//
     }
     public void deleteNote(final Note note) {
         db.collection("Notes").document(note.getId())
