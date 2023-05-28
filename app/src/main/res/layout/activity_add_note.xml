@@ -4,56 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#413E3E">
+    tools:context=".AddNoteActivity">
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Note Details"
-        android:textColor="#6AFF679C"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="236dp"
+        android:text="Add Note"
+        android:textColor="#79673AB7"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <EditText
         android:id="@+id/title_note"
         android:layout_width="279dp"
         android:layout_height="50dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="40dp"
         android:hint="Title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-    <EditText
-        android:id="@+id/content_note"
-        android:layout_width="279dp"
-        android:layout_height="wrap_content"
-        android:hint="Content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:lines="4"
-        app:layout_constraintTop_toBottomOf="@+id/title_note"
-        app:layout_constraintVertical_bias="0.027" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="279dp"
         android:layout_height="60dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#6AFF679C"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#78673AB7"
         android:onClick="saveToFirebase"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content_note" />
+        app:layout_constraintTop_toBottomOf="@+id/title_note" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

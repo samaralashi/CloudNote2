@@ -41,7 +41,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         holder.title.setText(mData.get(position).getTitle());
-        holder.content.setText(mData.get(position).getContent());
         holder.delete.setOnClickListener(v -> mClickListener.onItemClick(holder.getAdapterPosition(), mData.get(position).id));
         holder.card.setOnClickListener(v -> itemClickListener2.onItemClick2(holder.getAdapterPosition(), mData.get(position).id));
 
@@ -55,7 +54,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView title;
-        public TextView content;
+//        public TextView content;
 
         public ImageView delete;
         public CardView card;
@@ -63,7 +62,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         ViewHolder(View itemView) {
             super(itemView);
             this.title = itemView.findViewById(R.id.title);
-            this.content = itemView.findViewById(R.id.content);
+//            this.content = itemView.findViewById(R.id.content);
             this.delete = itemView.findViewById(R.id.delete);
             this.card = itemView.findViewById(R.id.card2);
             itemView.setOnClickListener(this);

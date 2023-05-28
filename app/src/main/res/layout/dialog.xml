@@ -14,28 +14,6 @@
         android:layout_marginBottom="4dp"
         android:hint="Title" />
 
-    <EditText
-        android:id="@+id/update_content"
-        android:inputType="textPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="Content" />
 
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_update"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="20dp"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:layout_marginRight="20dp"-->
-    <!--        android:layout_marginBottom="20dp"-->
-    <!--        android:background="@drawable/bg_ui"-->
-    <!--        android:text="Update"-->
-    <!--        android:textColor="@android:color/white" />-->
 
 </LinearLayout>

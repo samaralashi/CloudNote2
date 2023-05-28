@@ -3,13 +3,13 @@ package com.example.cloudnote22;
 class Note {
     String id;
     String titleN;
-    String contentN;
+
 
     private Note() {}
-    Note(String id, String title, String content) {
+    Note(String id, String title) {
         this.id = id;
         this.titleN = title;
-        this.contentN = content;
+
     }
 
     public String getId() {
@@ -28,13 +28,7 @@ class Note {
         this.titleN = title;
     }
 
-    public String getContent() {
-        return contentN;
-    }
 
-    public void setContent(String content) {
-        this.contentN = content;
-    }
 
 
 }
